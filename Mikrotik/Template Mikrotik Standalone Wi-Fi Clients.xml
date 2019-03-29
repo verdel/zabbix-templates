@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2018-12-11T15:00:49Z</date>
+    <date>2018-12-29T09:36:02Z</date>
     <groups>
         <group>
             <name>Solar/Templates</name>
@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>Template Mikrotik Wi-Fi Clients</template>
-            <name>Template Mikrotik Wi-Fi Clients</name>
+            <template>Template Mikrotik Standalone AP Wi-Fi Clients</template>
+            <name>Template Mikrotik Standalone AP Wi-Fi Clients</name>
             <description/>
             <groups>
                 <group>
@@ -61,9 +61,9 @@
                             <type>10</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>getAPClient.py[--host,{HOST.HOST},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
+                            <key>getAPClient.py[--host,{HOST.CONN},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
                             <delay>30s</delay>
-                            <history>0d</history>
+                            <history>1d</history>
                             <trends>0</trends>
                             <status>0</status>
                             <value_type>4</value_type>
@@ -180,7 +180,7 @@
                             <verify_host>0</verify_host>
                             <application_prototypes/>
                             <master_item>
-                                <key>getAPClient.py[--host,{HOST.HOST},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
+                                <key>getAPClient.py[--host,{HOST.CONN},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -247,7 +247,7 @@
                             <verify_host>0</verify_host>
                             <application_prototypes/>
                             <master_item>
-                                <key>getAPClient.py[--host,{HOST.HOST},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
+                                <key>getAPClient.py[--host,{HOST.CONN},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -318,7 +318,7 @@
                             <verify_host>0</verify_host>
                             <application_prototypes/>
                             <master_item>
-                                <key>getAPClient.py[--host,{HOST.HOST},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
+                                <key>getAPClient.py[--host,{HOST.CONN},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -389,7 +389,7 @@
                             <verify_host>0</verify_host>
                             <application_prototypes/>
                             <master_item>
-                                <key>getAPClient.py[--host,{HOST.HOST},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
+                                <key>getAPClient.py[--host,{HOST.CONN},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -456,7 +456,7 @@
                             <verify_host>0</verify_host>
                             <application_prototypes/>
                             <master_item>
-                                <key>getAPClient.py[--host,{HOST.HOST},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
+                                <key>getAPClient.py[--host,{HOST.CONN},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -527,7 +527,7 @@
                             <verify_host>0</verify_host>
                             <application_prototypes/>
                             <master_item>
-                                <key>getAPClient.py[--host,{HOST.HOST},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
+                                <key>getAPClient.py[--host,{HOST.CONN},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -598,7 +598,7 @@
                             <verify_host>0</verify_host>
                             <application_prototypes/>
                             <master_item>
-                                <key>getAPClient.py[--host,{HOST.HOST},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
+                                <key>getAPClient.py[--host,{HOST.CONN},--username,{$ROS_USERNAME},--password,{$ROS_PASSWORD},stats,--mac,{#WIFIMAC}]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
@@ -630,7 +630,7 @@
                                     <calc_fnc>4</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Mikrotik Wi-Fi Clients</host>
+                                        <host>Template Mikrotik Standalone AP Wi-Fi Clients</host>
                                         <key>mikrotik.client.packets.to.[&quot;{#WIFINAME}&quot;]</key>
                                     </item>
                                 </graph_item>
@@ -642,7 +642,7 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Mikrotik Wi-Fi Clients</host>
+                                        <host>Template Mikrotik Standalone AP Wi-Fi Clients</host>
                                         <key>mikrotik.client.packets.from.[&quot;{#WIFINAME}&quot;]</key>
                                     </item>
                                 </graph_item>
@@ -674,7 +674,7 @@
                                     <calc_fnc>4</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Mikrotik Wi-Fi Clients</host>
+                                        <host>Template Mikrotik Standalone AP Wi-Fi Clients</host>
                                         <key>mikrotik.client.traffic.to.[&quot;{#WIFINAME}&quot;]</key>
                                     </item>
                                 </graph_item>
@@ -686,7 +686,7 @@
                                     <calc_fnc>4</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template Mikrotik Wi-Fi Clients</host>
+                                        <host>Template Mikrotik Standalone AP Wi-Fi Clients</host>
                                         <key>mikrotik.client.traffic.from.[&quot;{#WIFINAME}&quot;]</key>
                                     </item>
                                 </graph_item>

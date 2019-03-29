@@ -10,7 +10,7 @@ It uses the value of the comment field in the dhcp server lease section as the c
 
 - Import **'Template Mikrotik CAP Wi-Fi Clients.xml'** template into Zabbix
 
-- Add script **'getAPClient.py'** into the externalscripts directory on Zabbix Server or Zabbix Proxy
+- Add script **'getAPClient.py'** for standalone Mikrotik AP or **'getAPClient_CAPsMAN.py'** for Mikrotik with CAPsMAN into the externalscripts directory on Zabbix Server or Zabbix Proxy
 
 - Copy **'requirements.txt'** file to the temporary directory on Zabbix Server or Zabbix Proxy
 

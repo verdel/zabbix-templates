@@ -9,7 +9,7 @@ from librouteros.login import login_plain, login_token
 
 
 def stats(api, mac):
-    ap_clients = api(cmd='/interface/wireless/registration-table/print', stats=True)
+    ap_clients = api(cmd='/caps-man/registration-table/print', stats=True)
     dhcp_leases = api(cmd='/ip/dhcp-server/lease/print')
     for ap_client in ap_clients:
         if mac == ap_client['mac-address']:
@@ -19,21 +19,31 @@ def stats(api, mac):
                                       "rx-bytes": ap_client['bytes'].split(",")[1],
                                       "tx-packets": ap_client['packets'].split(",")[0],
                                       "rx-packets": ap_client['packets'].split(",")[1],
-                                      "rx-signal": ap_client['signal-strength'].split("@")[0],
+                                      "rx-signal": ap_client['rx-signal'],
                                       "cap": ap_client['interface'],
                                       "ip-address": lease['active-address']}))
                     sys.exit()
 
 
+def ssid(api, ssid):
+    result = 0
+    ap_clients = api(cmd='/caps-man/registration-table/print', stats=True)
+    for client in ap_clients:
+        if client['ssid'] == ssid:
+            result += 1
+    print(result)
+    sys.exit()
+
+
 def summary(api):
-    ap_clients = api(cmd='/interface/wireless/registration-table/print', stats=True)
+    ap_clients = api(cmd='/caps-man/registration-table/print', stats=True)
     print(len(ap_clients))
     sys.exit()
 
 
 def discovery(api):
     ap_discovery = []
-    ap_clients = api(cmd='/interface/wireless/registration-table/print', stats=True)
+    ap_clients = api(cmd='/caps-man/registration-table/print', stats=True)
     dhcp_leases = api(cmd='/ip/dhcp-server/lease/print')
 
     for ap_client in ap_clients:
@@ -68,6 +78,8 @@ if __name__ == '__main__':
     parser_discovery = subparsers.add_parser("summary", help="summary information about connected wifi clients")
     parser_stat = subparsers.add_parser("stats", help="statistic for connected wifi clients")
     parser_stat.add_argument("--mac", required=True)
+    parser_stat = subparsers.add_parser("ssid", help="statistic for ssid connected wifi clients")
+    parser_stat.add_argument("--name", required=True)
 
     args = parser.parse_args()
     api = auth(host=args.host, username=args.username, password=args.password)
@@ -81,3 +93,5 @@ if __name__ == '__main__':
         stats(api, args.mac)
     elif args.command == 'summary':
         summary(api)
+    elif args.command == 'ssid':
+        ssid(api, args.name)
