@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.0</version>
+    <date>2019-03-28T14:41:38Z</date>
+    <value_maps>
+        <value_map>
+            <name>LSI Logical Drives State</name>
+            <mappings>
+                <mapping>
+                    <value>Dgrd</value>
+                    <newvalue>Degraded</newvalue>
+                </mapping>
+                <mapping>
+                    <value>OfLn</value>
+                    <newvalue>OffLine</newvalue>
+                </mapping>
+                <mapping>
+                    <value>Optl</value>
+                    <newvalue>Optimal</newvalue>
+                </mapping>
+                <mapping>
+                    <value>Pdgd</value>
+                    <newvalue>Partially Degraded</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>LSI Physical Drives State</name>
+            <mappings>
+                <mapping>
+                    <value>DHS</value>
+                    <newvalue>Dedicated Hot Spare</newvalue>
+                </mapping>
+                <mapping>
+                    <value>GHS</value>
+                    <newvalue>Global Hotspare</newvalue>
+                </mapping>
+                <mapping>
+                    <value>Offln</value>
+                    <newvalue>Offline</newvalue>
+                </mapping>
+                <mapping>
+                    <value>Onln</value>
+                    <newvalue>Online</newvalue>
+                </mapping>
+                <mapping>
+                    <value>UBad</value>
+                    <newvalue>Unconfigured Bad</newvalue>
+                </mapping>
+                <mapping>
+                    <value>UGood</value>
+                    <newvalue>Unconfigured Good</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>

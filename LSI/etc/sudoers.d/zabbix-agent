@@ -1,0 +1,3 @@
+Defaults:zabbix !requiretty
+zabbix ALL=(ALL) NOPASSWD: /opt/MegaRAID/storcli/parse_storcli.py
+zabbix ALL=(ALL) NOPASSWD: /opt/MegaRAID/storcli/storcli64
