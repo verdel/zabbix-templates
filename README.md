@@ -6,3 +6,7 @@ or information systems
 ## List of Templates:
 - Hardware:
     - Infortrend EonStor DS1012R
+    - Mikrotik AP Clients
+    - LSI RAID Controller
+- Software:
+    - PowerDNS Authoritative
