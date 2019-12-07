@@ -5,15 +5,18 @@ import json
 import sys
 import argparse
 from librouteros import connect
-from librouteros.login import login_plain, login_token
+from librouteros.login import plain, token
 
 
 def stats(api, mac):
+    dhcp_info = []
     ap_clients = api(cmd='/caps-man/registration-table/print', stats=True)
     dhcp_leases = api(cmd='/ip/dhcp-server/lease/print')
+    for dhcp_lease in dhcp_leases:
+        dhcp_info.append({'mac-address': dhcp_lease['mac-address'], 'active-address': dhcp_lease.get('active-address','')})
     for ap_client in ap_clients:
         if mac == ap_client['mac-address']:
-            for lease in dhcp_leases:
+            for lease in dhcp_info:
                 if lease['mac-address'] == mac:
                     print(json.dumps({"tx-bytes": ap_client['bytes'].split(",")[0],
                                       "rx-bytes": ap_client['bytes'].split(",")[1],
@@ -43,14 +46,17 @@ def summary(api):
 
 def discovery(api):
     ap_discovery = []
+    dhcp_info = []
     ap_clients = api(cmd='/caps-man/registration-table/print', stats=True)
     dhcp_leases = api(cmd='/ip/dhcp-server/lease/print')
+    for dhcp_lease in dhcp_leases:
+        dhcp_info.append({'mac-address': dhcp_lease['mac-address'], 'comment': dhcp_lease.get('comment', ''), 'host-name': dhcp_lease.get('host-name', '')})
 
     for ap_client in ap_clients:
         mac = ap_client['mac-address']
-        for lease in dhcp_leases:
+        for lease in dhcp_info:
             if lease['mac-address'] == mac:
-                hostname = lease.get('comment', '')
+                hostname = lease['comment']
                 if not hostname:
                     hostname = lease.get('host-name', ap_client['mac-address'])
                 ap_discovery.append({'{#WIFIMAC}': ap_client['mac-address'], '{#WIFINAME}': hostname})
@@ -60,7 +66,7 @@ def discovery(api):
 
 
 def auth(host, username, password):
-    method = (login_plain, )
+    method = (plain, )
     try:
         api = connect(username=username, password=password, host=host, login_methods=method)
     except:
