@@ -10,3 +10,5 @@ or information systems
     - LSI RAID Controller
 - Software:
     - PowerDNS Authoritative
+    - SSL certificate expiration check
+    - Squid external acl process health monitoring

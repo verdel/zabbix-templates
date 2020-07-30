@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2020-06-27T10:52:55Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template SSL Cert Check External</template>
+            <name>Template SSL Cert Check External</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>SSL certificate</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>SSL certificate day before expiration</name>
+                    <type>EXTERNAL</type>
+                    <key>ssl-check-cert.py[--host,{HOST.CONN},--port,{$SSL_PORT},--day-before-expire]</key>
+                    <delay>1d</delay>
+                    <history>7d</history>
+                    <value_type>FLOAT</value_type>
+                    <units>!days</units>
+                    <applications>
+                        <application>
+                            <name>SSL certificate</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}&lt;7</expression>
+                            <name>SSL certificate on {HOSTNAME} expires in less than 7 days ({ITEM.VALUE} days remaining)</name>
+                            <priority>HIGH</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>SSL certificate on {HOSTNAME} expired</name>
+                                    <expression>{Template SSL Cert Check External:ssl-check-cert.py[--host,{HOST.CONN},--port,{$SSL_PORT},--status].last(0)}=0</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                        <trigger>
+                            <expression>{last(0)}&lt;15</expression>
+                            <name>SSL certificate on {HOSTNAME} expires in less than 15 days ({ITEM.VALUE} days remaining)</name>
+                            <priority>AVERAGE</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>SSL certificate on {HOSTNAME} expires in less than 7 days ({ITEM.VALUE} days remaining)</name>
+                                    <expression>{Template SSL Cert Check External:ssl-check-cert.py[--host,{HOST.CONN},--port,{$SSL_PORT},--day-before-expire].last(0)}&lt;7</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                        <trigger>
+                            <expression>{last(0)}&lt;30</expression>
+                            <name>SSL certificate on {HOSTNAME} expires in less than 30 days ({ITEM.VALUE} days remaining)</name>
+                            <priority>WARNING</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>SSL certificate on {HOSTNAME} expires in less than 15 days ({ITEM.VALUE} days remaining)</name>
+                                    <expression>{Template SSL Cert Check External:ssl-check-cert.py[--host,{HOST.CONN},--port,{$SSL_PORT},--day-before-expire].last(0)}&lt;15</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                        <trigger>
+                            <expression>{last(0)}&lt;60</expression>
+                            <name>SSL certificate on {HOSTNAME} expires in less than 60 days ({ITEM.VALUE} days remaining)</name>
+                            <priority>INFO</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>SSL certificate on {HOSTNAME} expires in less than 30 days ({ITEM.VALUE} days remaining)</name>
+                                    <expression>{Template SSL Cert Check External:ssl-check-cert.py[--host,{HOST.CONN},--port,{$SSL_PORT},--day-before-expire].last(0)}&lt;30</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                        <trigger>
+                            <expression>{last(0)}&lt;90</expression>
+                            <name>SSL certificate on {HOSTNAME} expires in less than 90 days ({ITEM.VALUE} days remaining)</name>
+                            <dependencies>
+                                <dependency>
+                                    <name>SSL certificate on {HOSTNAME} expires in less than 60 days ({ITEM.VALUE} days remaining)</name>
+                                    <expression>{Template SSL Cert Check External:ssl-check-cert.py[--host,{HOST.CONN},--port,{$SSL_PORT},--day-before-expire].last(0)}&lt;60</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>SSL certificate validity</name>
+                    <type>EXTERNAL</type>
+                    <key>ssl-check-cert.py[--host,{HOST.CONN},--port,{$SSL_PORT},--status]</key>
+                    <delay>1d</delay>
+                    <history>7d</history>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>SSL certificate</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}=0</expression>
+                            <name>SSL certificate on {HOSTNAME} expired</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$SSL_PORT}</macro>
+                    <value>443</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
